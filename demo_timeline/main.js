@@ -42,6 +42,10 @@ let Hello = React.createClass({
         }.bind(this), 100);
     },
     render: function () {
+        /*
+        * 第一重大括号表示这是JS语法
+        * 第二重大括号表示样式对象
+        * */
         return (
             <div style={{opacity: this.state.opacity}}>
                 Hello {this.props.name}
