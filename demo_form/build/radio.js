@@ -48,31 +48,112 @@
 
 	/**
 	 * Des
-	 * Created by luowei5 on 2016/9/1.
+	 * Created by luowei5 on 2016/9/20.
 	 * E-mail luowei5@jd.com
-	 * Update 2016/9/1
+	 * Update 2016/9/20
 	 */
-	var MyComponent = React.createClass({
-	    displayName: "MyComponent",
+	var Radio = React.createClass({
+	    displayName: "Radio",
 
-	    handleClick: function handleClick() {
-	        //this.refs.myTxtInput.getDOMNode() 已被移出
-	        this.refs.myTxtInput.focus();
-	        console.log(this.refs.myTxtInput);
-	        console.log(RD.findDOMNode(this.refs.myTxtInput));
+	    propTypes: {
+	        onChange: React.PropTypes.func
+	    },
+	    getInitialState: function getInitialState() {
+	        return {
+	            value: this.props.defaultValue
+	        };
+	    },
+	    handleChange: function handleChange(event) {
+	        this.props.onChange && this.props.onChange(event);
+
+	        this.setState({
+	            value: event.target.value
+	        });
 	    },
 	    render: function render() {
+	        var children = [];
+	        var value = this.props.value || this.state.value;
+
+	        React.Children.forEach(this.props.children, function (child, i) {
+	            var label = React.createElement(
+	                "label",
+	                { key: i },
+	                React.createElement("input", { type: "radio",
+	                    name: this.props.name,
+	                    value: child.props.value,
+	                    checked: child.props.value == value,
+	                    onChange: this.handleChange
+	                }),
+	                React.createElement(
+	                    "span",
+	                    null,
+	                    child.props.children
+	                ),
+	                React.createElement("br", null)
+	            );
+	            console.log(child.props);
+	            children[i] = label;
+	        }.bind(this));
+
 	        return React.createElement(
-	            "div",
+	            "span",
 	            null,
-	            React.createElement("input", { type: "text", ref: "myTxtInput" /*autoFocus="true"*/ }),
-	            React.createElement("br", null),
-	            React.createElement("input", { type: "button", value: "Focus the text input", onClick: this.handleClick })
+	            children
 	        );
 	    }
 	});
 
-	RD.render(React.createElement(MyComponent, null), document.querySelector('#reactBox'));
+	var MyForm = React.createClass({
+	    displayName: "MyForm",
+
+	    submitHandler: function submitHandler(event) {
+	        event.preventDefault();
+	        alert(this.refs.radio.state.value);
+	    },
+	    changeHandler: function changeHandler() {
+	        console.log(this.refs.radio); //自定义组件和原生DOM不同，自定义组件里面带了许多属性和方法
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            "form",
+	            { onSubmit: this.submitHandler },
+	            React.createElement(
+	                Radio,
+	                { ref: "radio", name: "my_radio", defaultValue: "B", onChange: this.changeHandler },
+	                React.createElement(
+	                    "a",
+	                    { value: "A" },
+	                    React.createElement(
+	                        "span",
+	                        null,
+	                        React.createElement(
+	                            "a",
+	                            { href: "#" },
+	                            "111"
+	                        )
+	                    )
+	                ),
+	                React.createElement(
+	                    "b",
+	                    { value: "B" },
+	                    "222"
+	                ),
+	                React.createElement(
+	                    "c",
+	                    { value: "C" },
+	                    "333"
+	                )
+	            ),
+	            React.createElement(
+	                "button",
+	                { type: "submit" },
+	                "提交"
+	            )
+	        );
+	    }
+	});
+
+	RD.render(React.createElement(MyForm, null), document.querySelector('#reactBox'));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(34)))
 
 /***/ },

@@ -6,12 +6,15 @@
  */
 let MyComponent = React.createClass({
     handleClick: function () {
-        this.refs.myTxtInput.focus()
+        //this.refs.myTxtInput.getDOMNode() 已被移出
+        this.refs.myTxtInput.focus();
+        console.log(this.refs.myTxtInput);
+        console.log(RD.findDOMNode(this.refs.myTxtInput));
     },
     render: function () {
         return (
             <div>
-                <input type="text" ref="myTxtInput"/><br/>
+                <input type="text" ref="myTxtInput" /*autoFocus="true"*//><br/>
                 <input type="button" value="Focus the text input" onClick={this.handleClick}/>
             </div>
         );

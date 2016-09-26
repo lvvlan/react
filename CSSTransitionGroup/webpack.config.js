@@ -5,12 +5,12 @@
  * Update 2016/8/31
  */
 const webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        bundle: './main.js',
-        form: './form.js',
-        radio: './radio.js'
+        bundle: './main.js'
     },
     output: {
         path: './build/',
@@ -18,6 +18,7 @@ module.exports = {
     },
     module: {
         loaders: [
+            {test: /\.css$/, loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
             {
                 test: /\.js$/,
                 loader: 'babel',
@@ -33,7 +34,13 @@ module.exports = {
             $: 'jquery',
             React: 'react',
             RD: 'react-dom'
-        })
+        }),
+        new HtmlWebpackPlugin({
+            title: "React-css-loader测试",
+            template: "tpl/demo.html",
+            filename: "demo.html"
+        }),
+        new ExtractTextPlugin("[name].css")
     ],
     watch: true
 };

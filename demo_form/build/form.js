@@ -48,31 +48,35 @@
 
 	/**
 	 * Des
-	 * Created by luowei5 on 2016/9/1.
+	 * Created by luowei5 on 2016/9/19.
 	 * E-mail luowei5@jd.com
-	 * Update 2016/9/1
+	 * Update 2016/9/19
 	 */
-	var MyComponent = React.createClass({
-	    displayName: "MyComponent",
+	var Myform = React.createClass({
+	    displayName: "Myform",
 
-	    handleClick: function handleClick() {
-	        //this.refs.myTxtInput.getDOMNode() 已被移出
-	        this.refs.myTxtInput.focus();
-	        console.log(this.refs.myTxtInput);
-	        console.log(RD.findDOMNode(this.refs.myTxtInput));
+	    submitHandler: function submitHandler(event) {
+	        event.preventDefault();
+	        var helloTo = this.refs.helloTo.value;
+
+	        console.log(helloTo);
 	    },
 	    render: function render() {
 	        return React.createElement(
-	            "div",
-	            null,
-	            React.createElement("input", { type: "text", ref: "myTxtInput" /*autoFocus="true"*/ }),
+	            "form",
+	            { onSubmit: this.submitHandler },
+	            React.createElement("input", { type: "text", ref: "helloTo", defaultValue: "Hello World!" }),
 	            React.createElement("br", null),
-	            React.createElement("input", { type: "button", value: "Focus the text input", onClick: this.handleClick })
+	            React.createElement(
+	                "button",
+	                { type: "submit" },
+	                "提交"
+	            )
 	        );
 	    }
 	});
 
-	RD.render(React.createElement(MyComponent, null), document.querySelector('#reactBox'));
+	RD.render(React.createElement(Myform, null), document.getElementById('reactBox'));
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(34)))
 
 /***/ },
