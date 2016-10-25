@@ -1,0 +1,17 @@
+{
+  "READY": [
+    {"id":1,"text":"苹果"},
+    {"id":2,"text":"香蕉"},
+    {"id":3,"text":"橘子"}
+  ],
+  "RUNNING": [
+    {"id":4,"text":"juzi"},
+    {"id":5,"text":"橙子"}
+  ],
+  "COMPLETED": [
+    {"id":6,"text":"柠檬"},
+    {"id":7,"text":"jj"},
+    {"id":8,"text":"榴莲"},
+    {"id":9,"text":"芒果"}
+  ]
+}
