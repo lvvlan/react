@@ -39,6 +39,7 @@ function deleteData(state, filter) {
 
 //处理action (reducer)
 function getData(state, action){
+    console.log(action);
     switch (action.type){
         case UPDATE_TYPE.READY:
             return data.READY;

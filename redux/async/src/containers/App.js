@@ -22,6 +22,7 @@ const App = React.createClass({
         dispatch(fetchPostsIfNeeded(selectedReddit));
     },
     componentWillReceiveProps(nextPros) {
+        console.log(nextPros);
         if (nextPros.selectedReddit !== this.props.selectedReddit){
             const { dispatch, selectedReddit } = nextPros;
             dispatch(fetchPostsIfNeeded(selectedReddit));

@@ -48,7 +48,7 @@ const selectedReddit = (state = 'reactjs', action) => {
 };
 
 const postsByReddit = (state= {}, action) => {
-     console.log(state, action);
+     //console.log(state, action);
     switch (action.type){
         case INVALIDATE_REDDIT:
         case RECEIVE_POSTS:

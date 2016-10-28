@@ -1,0 +1,86 @@
+{
+  "start": [
+    {
+      "title": "111111",
+      "price": "这是优惠券这是惠券这这惠",
+      "bainaPrice": -1,
+      "imgSrc": "http://img14.360buyimg.com/n7/jfs/t346/302/1010969394/231745/50f20b36/542d0e26N894372e9.jpg",
+      "linkUrl": "",
+      "skuId": 11,
+      "activeId": 111,
+      "chances": 6,
+      "remark": "消耗6单白条",
+      "end": 1473852897000,
+      "wechat": true
+    },
+    {
+      "title": "222222",
+      "price": 11111,
+      "bainaPrice": 1,
+      "imgSrc": "http://img14.360buyimg.com/n7/jfs/t346/302/1010969394/231745/50f20b36/542d0e26N894372e9.jpg",
+      "linkUrl": "http://jr.jd.com",
+      "skuId": 22,
+      "activeId": 222,
+      "chances": 7,
+      "remark": "消耗7单白条",
+      "end": 1473766333000,
+      "wechat": true
+    }
+  ],
+  "running": [
+    {
+      "title": "333333",
+      "price": 11111,
+      "bainaPrice": 1,
+      "imgSrc": "http://img14.360buyimg.com/n7/jfs/t346/302/1010969394/231745/50f20b36/542d0e26N894372e9.jpg",
+      "linkUrl": "http://jr.jd.com",
+      "skuId": 33,
+      "activeId": 333,
+      "chances": 8,
+      "remark": "消耗8单白条",
+      "end": 1473694625000,
+      "wechat": false
+    },
+    {
+      "title": "444444",
+      "price": 11111,
+      "bainaPrice": 1,
+      "imgSrc": "http://img14.360buyimg.com/n7/jfs/t346/302/1010969394/231745/50f20b36/542d0e26N894372e9.jpg",
+      "linkUrl": "http://jr.jd.com",
+      "skuId": 44,
+      "activeId": 444,
+      "chances": 3,
+      "remark": "消耗3单白条",
+      "end": 1473680116000,
+      "wechat": false
+    }
+  ],
+  "ending": [
+    {
+      "title": "555555",
+      "price": 11111,
+      "bainaPrice": 1,
+      "imgSrc": "http://img14.360buyimg.com/n7/jfs/t346/302/1010969394/231745/50f20b36/542d0e26N894372e9.jpg",
+      "linkUrl": "http://jr.jd.com",
+      "skuId": 55,
+      "activeId": 555,
+      "chances": 6,
+      "remark": "消耗6单白条",
+      "end": 1472731810000,
+      "wechat": false
+    },
+    {
+      "title": "666666",
+      "price": 11111,
+      "bainaPrice": 1,
+      "imgSrc": "http://img14.360buyimg.com/n7/jfs/t346/302/1010969394/231745/50f20b36/542d0e26N894372e9.jpg",
+      "linkUrl": "http://jr.jd.com",
+      "skuId": 66,
+      "activeId": 666,
+      "chances": 7,
+      "remark": "消耗7单白条",
+      "end": 1470987585000,
+      "wechat": false
+    }
+  ]
+}

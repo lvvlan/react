@@ -50,33 +50,31 @@
 
 	var _reactRedux = __webpack_require__(187);
 
-	var _reduxThunk = __webpack_require__(196);
-
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-
-	var _reduxLogger = __webpack_require__(197);
-
-	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
-
-	var _reducers = __webpack_require__(203);
+	var _reducers = __webpack_require__(196);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
-	var _App = __webpack_require__(205);
+	var _reduxLogger = __webpack_require__(198);
+
+	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+
+	var _App = __webpack_require__(204);
 
 	var _App2 = _interopRequireDefault(_App);
+
+	var _reduxThunk = __webpack_require__(207);
+
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/**
 	 * Des
-	 * Created by luowei5 on 2016/10/21.
+	 * Created by luowei5 on 2016/10/25.
 	 * E-mail luowei5@jd.com
-	 * Update 2016/10/21
+	 * Update 2016/10/25
 	 */
-	var middleware = [_reduxThunk2.default, (0, _reduxLogger2.default)()];
-
-	var store = (0, _redux.createStore)(_reducers2.default, _redux.applyMiddleware.apply(undefined, middleware));
+	var store = (0, _redux.createStore)(_reducers2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reduxLogger2.default)()));
 
 	RD.render(React.createElement(
 	    _reactRedux.Provider,
@@ -23031,34 +23029,90 @@
 
 /***/ },
 /* 196 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _actions = __webpack_require__(197);
+
+	function rootReducer() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? { isFetching: false, posts: [] } : arguments[0];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _actions.DIRECTIVE_TYPE.START:
+	            return {
+	                posts: action.posts.start,
+	                lastUpdate: action.lastUpdate,
+	                isFetching: false
+	            };
+	        case _actions.DIRECTIVE_TYPE.RUNNING:
+	            return {
+	                posts: action.posts.running,
+	                lastUpdate: action.lastUpdate,
+	                isFetching: false
+	            };
+	        case _actions.DIRECTIVE_TYPE.ENDING:
+	            return {
+	                posts: action.posts.ending,
+	                lastUpdate: action.lastUpdate,
+	                isFetching: false
+	            };
+	        default:
+	            return state;
+	    }
+	} /**
+	   * Des
+	   * Created by luowei5 on 2016/10/25.
+	   * E-mail luowei5@jd.com
+	   * Update 2016/10/25
+	   */
+	exports.default = rootReducer;
+
+/***/ },
+/* 197 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	exports.__esModule = true;
-	function createThunkMiddleware(extraArgument) {
-	  return function (_ref) {
-	    var dispatch = _ref.dispatch;
-	    var getState = _ref.getState;
-	    return function (next) {
-	      return function (action) {
-	        if (typeof action === 'function') {
-	          return action(dispatch, getState, extraArgument);
-	        }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.updateData = updateData;
+	/**
+	 * Des
+	 * Created by luowei5 on 2016/10/25.
+	 * E-mail luowei5@jd.com
+	 * Update 2016/10/25
+	 */
 
-	        return next(action);
-	      };
+	var DIRECTIVE_TYPE = exports.DIRECTIVE_TYPE = {
+	    START: 'START',
+	    RUNNING: 'RUNNING',
+	    ENDING: 'ENDING'
+	};
+
+	//选择加载数据
+	function updateData(type) {
+	    return function (dispatch) {
+	        fetch('../data/data.json').then(function (respones) {
+	            return respones.json();
+	        }).then(function (data) {
+	            dispatch({
+	                type: type,
+	                posts: data,
+	                lastUpdate: new Date()
+	            }); /*console.log(data);*/
+	        });
 	    };
-	  };
 	}
 
-	var thunk = createThunkMiddleware();
-	thunk.withExtraArgument = createThunkMiddleware;
-
-	exports['default'] = thunk;
-
 /***/ },
-/* 197 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23069,11 +23123,11 @@
 	  value: true
 	});
 
-	var _core = __webpack_require__(198);
+	var _core = __webpack_require__(199);
 
-	var _helpers = __webpack_require__(199);
+	var _helpers = __webpack_require__(200);
 
-	var _defaults = __webpack_require__(202);
+	var _defaults = __webpack_require__(203);
 
 	var _defaults2 = _interopRequireDefault(_defaults);
 
@@ -23176,7 +23230,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 198 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23186,9 +23240,9 @@
 	});
 	exports.printBuffer = printBuffer;
 
-	var _helpers = __webpack_require__(199);
+	var _helpers = __webpack_require__(200);
 
-	var _diff = __webpack_require__(200);
+	var _diff = __webpack_require__(201);
 
 	var _diff2 = _interopRequireDefault(_diff);
 
@@ -23309,7 +23363,7 @@
 	}
 
 /***/ },
-/* 199 */
+/* 200 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -23333,7 +23387,7 @@
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ },
-/* 200 */
+/* 201 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23343,7 +23397,7 @@
 	});
 	exports.default = diffLogger;
 
-	var _deepDiff = __webpack_require__(201);
+	var _deepDiff = __webpack_require__(202);
 
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 
@@ -23429,7 +23483,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 201 */
+/* 202 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -23858,7 +23912,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 202 */
+/* 203 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -23909,181 +23963,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 203 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
-	                                                                                                                                                                                                                                                                   * Des
-	                                                                                                                                                                                                                                                                   * Created by luowei5 on 2016/10/24.
-	                                                                                                                                                                                                                                                                   * E-mail luowei5@jd.com
-	                                                                                                                                                                                                                                                                   * Update 2016/10/24
-	                                                                                                                                                                                                                                                                   */
-
-
-	var _redux = __webpack_require__(172);
-
-	var _actions = __webpack_require__(204);
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	//根据actionType 返回不同的state
-	var posts = function posts() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? {
-	        isFetching: false, //是否在抓取数据
-	        didInvalidate: false, //数据是否过时
-	        items: []
-	    } : arguments[0];
-	    var action = arguments[1];
-
-	    switch (action.type) {
-	        case _actions.INVALIDATE_REDDIT:
-	            //刷新请求
-	            return _extends({}, state, {
-	                didInvalidate: true
-	            });
-	        case _actions.REQUEST_POSTS:
-	            //发送请求
-	            return _extends({}, state, {
-	                isFetching: true,
-	                didInvalidate: false
-	            });
-	        case _actions.RECEIVE_POSTS:
-	            //接受请求
-	            return _extends({}, state, {
-	                isFetching: false,
-	                didInvalidate: false,
-	                items: action.posts,
-	                lastUpdated: action.receivedAt //上次更新时间
-	            });
-	        default:
-	            return state;
-	    }
-	};
-
-	var selectedReddit = function selectedReddit() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? 'reactjs' : arguments[0];
-	    var action = arguments[1];
-
-	    switch (action.type) {
-	        case _actions.SELECT_REDDIT:
-	            return action.reddit;
-	        default:
-	            return state;
-	    }
-	};
-
-	var postsByReddit = function postsByReddit() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	    var action = arguments[1];
-
-	    //console.log(state, action);
-	    switch (action.type) {
-	        case _actions.INVALIDATE_REDDIT:
-	        case _actions.RECEIVE_POSTS:
-	        case _actions.REQUEST_POSTS:
-	            return _extends({}, state, _defineProperty({}, action.reddit, posts(state[action.reddit], action)));
-	        default:
-	            return state;
-	    }
-	};
-
-	var rootReducer = (0, _redux.combineReducers)({
-	    postsByReddit: postsByReddit,
-	    selectedReddit: selectedReddit
-	});
-
-	exports.default = rootReducer;
-
-/***/ },
 /* 204 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Des
-	 * Created by luowei5 on 2016/10/24.
-	 * E-mail luowei5@jd.com
-	 * Update 2016/10/24
-	 */
-	var REQUEST_POSTS = exports.REQUEST_POSTS = 'REQUEST_POSTS';
-	var RECEIVE_POSTS = exports.RECEIVE_POSTS = 'RECEIVE_POSTS';
-	var SELECT_REDDIT = exports.SELECT_REDDIT = 'SELECT_REDDIT';
-	var INVALIDATE_REDDIT = exports.INVALIDATE_REDDIT = 'INVALIDATE_REDDIT';
-
-	var selectReddit = exports.selectReddit = function selectReddit(reddit) {
-	    return {
-	        type: SELECT_REDDIT,
-	        reddit: reddit
-	    };
-	};
-
-	var invalidateReddit = exports.invalidateReddit = function invalidateReddit(reddit) {
-	    return {
-	        type: INVALIDATE_REDDIT,
-	        reddit: reddit
-	    };
-	};
-
-	var requestPosts = exports.requestPosts = function requestPosts(reddit) {
-	    return {
-	        type: REQUEST_POSTS,
-	        reddit: reddit
-	    };
-	};
-
-	var receivePosts = exports.receivePosts = function receivePosts(reddit, json) {
-	    return {
-	        type: RECEIVE_POSTS,
-	        reddit: reddit,
-	        posts: json.data.children.map(function (child) {
-	            return child.data;
-	        }),
-	        receivedAt: Date.now()
-	    };
-	};
-
-	var fetchPosts = function fetchPosts(reddit) {
-	    return function (dispatch) {
-	        dispatch(requestPosts(reddit));
-	        return fetch('https://www.reddit.com/r/' + reddit + '.json').then(function (response) {
-	            return response.json();
-	        }).then(function (json) {
-	            dispatch(receivePosts(reddit, json));
-	        });
-	    };
-	};
-
-	var shouldFetchPosts = function shouldFetchPosts(state, reddit) {
-	    var posts = state.postsByReddit[reddit];
-	    if (!posts) {
-	        return true;
-	    }
-	    if (posts.isFetching) {
-	        return false;
-	    }
-	    return posts.didInvalidate;
-	};
-
-	var fetchPostsIfNeeded = exports.fetchPostsIfNeeded = function fetchPostsIfNeeded(reddit) {
-	    return function (dispatch, getState) {
-	        if (shouldFetchPosts(getState(), reddit)) {
-	            return dispatch(fetchPosts(reddit));
-	        }
-	    };
-	};
-
-/***/ },
-/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(React) {'use strict';
@@ -24094,230 +23974,210 @@
 
 	var _reactRedux = __webpack_require__(187);
 
-	var _actions = __webpack_require__(204);
+	var _List = __webpack_require__(205);
 
-	var _Picker = __webpack_require__(206);
+	var _List2 = _interopRequireDefault(_List);
 
-	var _Picker2 = _interopRequireDefault(_Picker);
+	var _header = __webpack_require__(206);
 
-	var _Posts = __webpack_require__(207);
+	var _header2 = _interopRequireDefault(_header);
 
-	var _Posts2 = _interopRequireDefault(_Posts);
+	var _reducers = __webpack_require__(196);
+
+	var _reducers2 = _interopRequireDefault(_reducers);
+
+	var _actions = __webpack_require__(197);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/**
-	 * Des
-	 * Created by luowei5 on 2016/10/24.
-	 * E-mail luowei5@jd.com
-	 * Update 2016/10/24
-	 */
 	var App = React.createClass({
 	    displayName: 'App',
+	    handleClick: function handleClick(flag) {
+	        var dispatch = this.props.dispatch;
 
-	    PropTypes: {
-	        selectedReddit: React.PropTypes.string.isRequired,
-	        posts: React.PropTypes.array.isRequired,
-	        isFetching: React.PropTypes.bool.isRequired,
-	        lastUpdated: React.PropTypes.number,
-	        disptach: React.PropTypes.func.isRequired
+
+	        dispatch((0, _actions.updateData)(flag));
 	    },
 	    componentDidMount: function componentDidMount() {
-	        var _props = this.props;
-	        var dispatch = _props.dispatch;
-	        var selectedReddit = _props.selectedReddit;
+	        var dispatch = this.props.dispatch;
 
-	        dispatch((0, _actions.fetchPostsIfNeeded)(selectedReddit));
+
+	        dispatch((0, _actions.updateData)(_actions.DIRECTIVE_TYPE.START));
 	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextPros) {
-	        console.log(nextPros);
-	        if (nextPros.selectedReddit !== this.props.selectedReddit) {
-	            var dispatch = nextPros.dispatch;
-	            var selectedReddit = nextPros.selectedReddit;
-
-	            dispatch((0, _actions.fetchPostsIfNeeded)(selectedReddit));
-	        }
-	    },
-	    handleChange: function handleChange(nextReddit) {
-	        this.props.dispatch((0, _actions.selectReddit)(nextReddit));
-	    },
-	    handleRefreshClick: function handleRefreshClick(e) {
-	        e.preventDefault();
-
-	        var _props2 = this.props;
-	        var dispatch = _props2.dispatch;
-	        var selectedReddit = _props2.selectedReddit;
-
-	        dispatch((0, _actions.invalidateReddit)(selectedReddit));
-	        dispatch((0, _actions.fetchPostsIfNeeded)(selectedReddit));
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        console.log(nextProps);
 	    },
 	    render: function render() {
-	        var _props3 = this.props;
-	        var selectedReddit = _props3.selectedReddit;
-	        var posts = _props3.posts;
-	        var isFetching = _props3.isFetching;
-	        var lastUpdated = _props3.lastUpdated;
 	        //console.log(this.props);
+	        var _props$myState = this.props.myState;
+	        var isFetching = _props$myState.isFetching;
+	        var posts = _props$myState.posts;
+	        //console.log(posts);
 
 	        var isEmpty = posts.length === 0;
-
 	        return React.createElement(
 	            'div',
 	            null,
-	            React.createElement(_Picker2.default, { value: selectedReddit, onChange: this.handleChange, options: ['reactjs', 'frontend'] }),
 	            React.createElement(
-	                'p',
-	                null,
-	                lastUpdated && React.createElement(
-	                    'span',
-	                    null,
-	                    'Last update at ',
-	                    new Date(lastUpdated).toLocaleTimeString(),
-	                    ' '
-	                ),
-	                !isFetching && React.createElement(
-	                    'a',
-	                    { href: '#', onClick: this.handleRefreshClick },
-	                    'Refresh'
-	                )
-	            ),
-	            isEmpty ? isFetching ? React.createElement(
-	                'h2',
-	                null,
-	                'Loading...'
-	            ) : React.createElement(
-	                'h2',
-	                null,
-	                'empty.'
-	            ) : React.createElement(
 	                'div',
-	                { style: { opacity: isFetching ? 0.5 : 1 } },
-	                React.createElement(_Posts2.default, { posts: posts })
-	            )
-	        );
-	    }
-	});
-
-	var mapStateToProps = function mapStateToProps(state) {
-	    var selectedReddit = state.selectedReddit;
-	    var postsByReddit = state.postsByReddit; //postsByReddit在action（postsByReddit）里返回了
-
-	    var _ref = postsByReddit[selectedReddit] || { isFetching: true, items: [] };
-
-	    var isFetching = _ref.isFetching;
-	    var lastUpdated = _ref.lastUpdated;
-	    var posts = _ref.items;
-
-	    //console.log({selectedReddit,posts,isFetching,lastUpdated});
-
-	    return {
-	        selectedReddit: selectedReddit, //抓住数据key
-	        posts: posts, //数据集合
-	        isFetching: isFetching, //是否在抓取
-	        lastUpdated: lastUpdated //上次更新时间
-	    };
-	};
-
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(App);
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(166)))
-
-/***/ },
-/* 206 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(React) {"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	/**
-	 * Des
-	 * Created by luowei5 on 2016/10/24.
-	 * E-mail luowei5@jd.com
-	 * Update 2016/10/24
-	 */
-	var Picker = React.createClass({
-	    displayName: "Picker",
-
-	    propTypes: {
-	        options: React.PropTypes.arrayOf(React.PropTypes.string.isRequired).isRequired,
-	        value: React.PropTypes.string.isRequired,
-	        onChange: React.PropTypes.func.isRequired
-	    },
-	    render: function render() {
-	        var _props = this.props;
-	        var value = _props.value;
-	        var _onChange = _props.onChange;
-	        var options = _props.options;
-
-
-	        return React.createElement(
-	            "span",
-	            null,
-	            React.createElement(
-	                "h1",
 	                null,
-	                value
+	                React.createElement(_header2.default, { onClick: this.handleClick })
 	            ),
 	            React.createElement(
-	                "select",
-	                { onChange: function onChange(e) {
-	                        return _onChange(e.target.value);
-	                    }, value: value },
-	                options.map(function (option) {
-	                    return React.createElement(
-	                        "option",
-	                        { value: option, key: option },
-	                        option
-	                    );
-	                })
+	                'div',
+	                null,
+	                isEmpty ? isFetching ? React.createElement(
+	                    'h2',
+	                    null,
+	                    'Loading...'
+	                ) : React.createElement(
+	                    'h2',
+	                    null,
+	                    'empty.'
+	                ) : React.createElement(_List2.default, { listData: posts })
 	            )
 	        );
 	    }
-	});
+	}); /**
+	     * Des
+	     * Created by luowei5 on 2016/10/25.
+	     * E-mail luowei5@jd.com
+	     * Update 2016/10/25
+	     */
 
-	exports.default = Picker;
+
+	function select(state) {
+	    return {
+	        myState: state
+	    };
+	}
+	exports.default = (0, _reactRedux.connect)(select)(App);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(166)))
 
 /***/ },
-/* 207 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(React) {"use strict";
+	/* WEBPACK VAR INJECTION */(function(React) {'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	/**
 	 * Des
-	 * Created by luowei5 on 2016/10/24.
+	 * Created by luowei5 on 2016/10/25.
 	 * E-mail luowei5@jd.com
-	 * Update 2016/10/24
+	 * Update 2016/10/25
 	 */
-
-	var Posts = React.createClass({
-	    displayName: "Posts",
-
-	    PropTypes: {
-	        posts: React.PropTypes.array.isRequired
-	    },
+	var List = React.createClass({
+	    displayName: 'List',
 	    render: function render() {
+	        var listData = this.props.listData;
+
 	        return React.createElement(
-	            "ul",
-	            null,
-	            this.props.posts.map(function (post, i) {
+	            'ul',
+	            { style: { width: '420px', height: '300px', border: '1px solid #f00', listStyle: 'none', padding: 0, margin: 0 } },
+	            listData.map(function (data, i) {
 	                return React.createElement(
-	                    "li",
-	                    { key: i },
-	                    post.title
+	                    'li',
+	                    { style: { width: '200px', height: '300px', float: 'left', marginRight: '10px' }, key: i },
+	                    React.createElement(
+	                        'a',
+	                        { style: { width: '200px', height: '100px' }, href: data.linkUrl },
+	                        data.title
+	                    ),
+	                    React.createElement(
+	                        'p',
+	                        { style: { width: '200px', height: '200px' } },
+	                        React.createElement('img', { style: { width: '200px', height: '200px' }, src: data.imgSrc })
+	                    )
 	                );
 	            })
 	        );
 	    }
 	});
 
-	exports.default = Posts;
+	exports.default = List;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(166)))
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(React) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Des
+	 * Created by luowei5 on 2016/10/25.
+	 * E-mail luowei5@jd.com
+	 * Update 2016/10/25
+	 */
+	var Header = React.createClass({
+	    displayName: 'Header',
+	    render: function render() {
+	        var _this = this;
+
+	        return React.createElement(
+	            'div',
+	            null,
+	            React.createElement(
+	                'span',
+	                { style: { display: 'inline-block', width: '100px', height: '50px', marginRight: '10px', border: '1px solid #f00' }, onClick: function onClick() {
+	                        return _this.props.onClick('START');
+	                    } },
+	                'start'
+	            ),
+	            React.createElement(
+	                'span',
+	                { style: { display: 'inline-block', width: '100px', height: '50px', marginRight: '10px', border: '1px solid #f0f' }, onClick: function onClick() {
+	                        return _this.props.onClick('RUNNING');
+	                    } },
+	                'running'
+	            ),
+	            React.createElement(
+	                'span',
+	                { style: { display: 'inline-block', width: '100px', height: '50px', marginRight: '10px', border: '1px solid #0f0' }, onClick: function onClick() {
+	                        return _this.props.onClick('ENDING');
+	                    } },
+	                'ending'
+	            )
+	        );
+	    }
+	});
+
+	exports.default = Header;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(166)))
+
+/***/ },
+/* 207 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+
+	exports['default'] = thunk;
 
 /***/ }
 /******/ ]);
