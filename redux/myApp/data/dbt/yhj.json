@@ -1,0 +1,13 @@
+{
+  "surplus": 0,
+  "dataList": [
+    {
+      "type": "ordinary",
+      "amounts": "5",
+      "description": "满300立减1",
+      "limit": "限店铺",
+      "href": "http://jr.jd.com"
+    }
+  ],
+  "moreHref": "http://jr.jd.com"
+}

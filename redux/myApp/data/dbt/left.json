@@ -1,0 +1,50 @@
+{
+  "promote":[
+    {
+      "imgSrc": "//img30.360buyimg.com/jr_image/jfs/t3289/190/2469595591/8632/fc9eb27d/57e1fc67Ne7bf7f4a.jpg",
+      "href": "http://jr.jd.com",
+      "tag": "电脑办公",
+      "title": "例题机领券立减300例题机领券立减300",
+      "description": "打白条满1000减30"
+    },
+    {
+      "imgSrc": "//img30.360buyimg.com/jr_image/jfs/t3097/150/2713792212/10652/4dd5f6cd/57e485b5N0ea1d1e5.jpg",
+      "href": "http://jr.jd.com",
+      "tag": "电脑办公",
+      "title": "例题机领券立减300",
+      "description": "打白条满1000减30"
+    }
+  ],
+  "articleList": [
+    {
+      "tag": "试用",
+      "title": "0元试用雅诗兰黛小棕瓶",
+      "href": "http://jr.jd.com"
+    },
+    {
+      "tag": "特惠",
+      "title": "0元试用雅诗兰黛小棕瓶",
+      "href": "http://jr.jd.com"
+    },
+    {
+      "tag": "满减",
+      "title": "0元试用雅诗兰黛小棕瓶",
+      "href": "http://jr.jd.com"
+    },
+    {
+      "tag": "试用",
+      "title": "0元试用雅诗兰黛小棕瓶",
+      "href": "http://jr.jd.com"
+    },
+    {
+      "tag": "满减",
+      "title": "0元试用雅诗兰黛小棕瓶",
+      "href": "http://jr.jd.com"
+    },
+    {
+      "tag": "满减",
+      "title": "0元试用雅诗兰黛小棕瓶",
+      "href": "http://jr.jd.com"
+    }
+  ]
+}

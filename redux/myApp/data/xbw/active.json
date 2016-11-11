@@ -1,0 +1,30 @@
+[
+  {
+    "title": "北京",
+    "imgSrc": "//img30.360buyimg.com/jr_image/jfs/t3778/217/849248564/40905/73fac0f3/5816ffd5N7cba0736.jpg",
+    "btn": "报名参加",
+    "href": "//jr.jd.com",
+    "status": true
+  },
+  {
+    "title": "厦门",
+    "imgSrc": "//img30.360buyimg.com/jr_image/jfs/t3316/95/274615433/72656/a1a7566c/580603b7Nb5d62078.jpg",
+    "btn": "报名参加",
+    "href": "//jr.jd.com",
+    "status": false
+  },
+  {
+    "title": "乌鲁木齐",
+    "imgSrc": "//img30.360buyimg.com/jr_image/jfs/t3679/79/277769567/35705/a3e233be/58060227N358bd856.jpg",
+    "btn": "报名参加",
+    "href": "//jr.jd.com",
+    "status": false
+  },
+  {
+    "title": "内蒙古",
+    "imgSrc": "//img30.360buyimg.com/jr_image/jfs/t3097/11/981522627/79097/9fddb308/57c3b286Nf417cb80.jpg",
+    "btn": "报名参加",
+    "href": "//jr.jd.com",
+    "status": false
+  }
+]

@@ -1,0 +1,17 @@
+{
+    "complete": 0,
+    "list": [
+        {
+            "ID": "dbt",
+            "isLoad": false
+        },
+        {
+            "ID": "xbw",
+            "isLoad": false
+        },
+        {
+            "ID": "bn",
+            "isLoad": false
+        }
+    ]
+}
