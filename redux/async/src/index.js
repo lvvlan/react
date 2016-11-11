@@ -11,6 +11,10 @@ import createLogger from 'redux-logger';
 import reducer from './reducers';
 import App from './containers/App';
 
+if (process.env.NODE_ENV !== 'production') {
+  console.log(111);
+}
+
 const middleware = [ thunk, createLogger() ];
 
 const store = createStore(reducer, applyMiddleware(...middleware));

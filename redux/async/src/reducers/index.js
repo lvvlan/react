@@ -13,6 +13,7 @@ const posts = (state = {
     didInvalidate: false,   //数据是否过时
     items: []
 }, action) => {
+    //console.log(action);
     switch (action.type){
         case INVALIDATE_REDDIT: //刷新请求
             return {

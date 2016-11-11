@@ -22,8 +22,9 @@ const App = React.createClass({
         dispatch(fetchPostsIfNeeded(selectedReddit));
     },
     componentWillReceiveProps(nextPros) {
-        console.log(nextPros);
+        //console.log(nextPros);
         if (nextPros.selectedReddit !== this.props.selectedReddit){
+            console.log(2);
             const { dispatch, selectedReddit } = nextPros;
             dispatch(fetchPostsIfNeeded(selectedReddit));
         }
@@ -42,7 +43,7 @@ const App = React.createClass({
         const { selectedReddit, posts, isFetching, lastUpdated } = this.props;
         //console.log(this.props);
         const isEmpty = posts.length === 0;
-
+        console.log(1);
         return (
             <div>
                 <Picker value={selectedReddit} onChange={this.handleChange} options={['reactjs', 'frontend']} />

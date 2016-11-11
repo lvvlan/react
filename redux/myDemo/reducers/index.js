@@ -6,7 +6,8 @@
  */
 import { DIRECTIVE_TYPE, updateData } from '../actions';
 
-function rootReducer(state = {isFetching: false, posts: []}, action) {
+function rootReducer(state = {isFetching: false, posts: [], type: 'START'}, action) {
+    //console.log(action); 
     switch (action.type){
         case DIRECTIVE_TYPE.START:
             return {
@@ -16,6 +17,7 @@ function rootReducer(state = {isFetching: false, posts: []}, action) {
                 type: action.type
             };
         case DIRECTIVE_TYPE.RUNNING:
+        //console.log(action);
             return {
                 posts: action.posts.running,
                 lastUpdate: action.lastUpdate,

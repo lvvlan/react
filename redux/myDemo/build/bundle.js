@@ -23040,27 +23040,32 @@
 	var _actions = __webpack_require__(197);
 
 	function rootReducer() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? { isFetching: false, posts: [] } : arguments[0];
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? { isFetching: false, posts: [], type: 'START' } : arguments[0];
 	    var action = arguments[1];
 
+	    //console.log(action); 
 	    switch (action.type) {
 	        case _actions.DIRECTIVE_TYPE.START:
 	            return {
 	                posts: action.posts.start,
 	                lastUpdate: action.lastUpdate,
-	                isFetching: false
+	                isFetching: false,
+	                type: action.type
 	            };
 	        case _actions.DIRECTIVE_TYPE.RUNNING:
+	            //console.log(action);
 	            return {
 	                posts: action.posts.running,
 	                lastUpdate: action.lastUpdate,
-	                isFetching: false
+	                isFetching: false,
+	                type: action.type
 	            };
 	        case _actions.DIRECTIVE_TYPE.ENDING:
 	            return {
 	                posts: action.posts.ending,
 	                lastUpdate: action.lastUpdate,
-	                isFetching: false
+	                isFetching: false,
+	                type: action.type
 	            };
 	        default:
 	            return state;
@@ -23096,10 +23101,43 @@
 	    ENDING: 'ENDING'
 	};
 
+	//是否需要请求新数据
+	var shouldFetch = function shouldFetch(state, type) {
+	    var posts = state.posts;
+	    //console.log(posts);
+	    if (!posts) {
+	        return true;
+	    }
+	    //console.log(state, '++++' + type);
+	    if (1 == type) {
+	        return false;
+	    }
+	    return true;
+	    //console.info(state, '++++' + type);
+	};
+
+	var fetchPostsIfNeed = exports.fetchPostsIfNeed = function fetchPostsIfNeed(type) {
+	    return function (dispatch, getState) {
+	        //console.log(3);
+	        if (shouldFetch(getState(), type)) {
+	            return dispatch(updateData(type));
+	        }
+	    };
+	};
+
 	//选择加载数据
 	function updateData(type) {
 	    return function (dispatch) {
-	        fetch('../data/data.json').then(function (respones) {
+	        dispatch({
+	            type: type,
+	            posts: {
+	                start: [{ a: 1 }, { b: 2 }],
+	                running: [{ c: 3 }, { d: 4 }],
+	                ending: [{ e: 5 }, { f: 6 }]
+	            },
+	            lastUpdate: new Date()
+	        });
+	        return fetch('../data/data.json').then(function (respones) {
 	            return respones.json();
 	        }).then(function (data) {
 	            dispatch({
@@ -23990,25 +24028,46 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * Des
+	                                                                                                                                                                                                                   * Created by luowei5 on 2016/10/25.
+	                                                                                                                                                                                                                   * E-mail luowei5@jd.com
+	                                                                                                                                                                                                                   * Update 2016/10/25
+	                                                                                                                                                                                                                   */
+
+
 	var App = React.createClass({
 	    displayName: 'App',
 	    handleClick: function handleClick(flag) {
-	        var dispatch = this.props.dispatch;
+	        var _props = this.props;
+	        var dispatch = _props.dispatch;
+	        var myState = _props.myState;
+	        //dispatch(fetchPostsIfNeed(flag));
 
-
-	        dispatch((0, _actions.updateData)(flag));
+	        dispatch({
+	            type: flag,
+	            posts: _defineProperty({}, flag.toLowerCase(), myState.posts),
+	            lastUpdate: 222
+	        });
 	    },
 	    componentDidMount: function componentDidMount() {
 	        var dispatch = this.props.dispatch;
-
+	        //console.log(1);
 
 	        dispatch((0, _actions.updateData)(_actions.DIRECTIVE_TYPE.START));
 	    },
 	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        console.log(nextProps);
+	        if (nextProps.myState.type !== this.props.myState.type) {
+	            console.log(2);
+	            var dispatch = this.props.dispatch;
+	            //console.log(nextProps.myState.type);
+
+	            dispatch((0, _actions.fetchPostsIfNeed)(nextProps.myState.type));
+	        }
 	    },
 	    render: function render() {
 	        //console.log(this.props);
+	        //console.log(1);
 	        var _props$myState = this.props.myState;
 	        var isFetching = _props$myState.isFetching;
 	        var posts = _props$myState.posts;
@@ -24038,15 +24097,10 @@
 	            )
 	        );
 	    }
-	}); /**
-	     * Des
-	     * Created by luowei5 on 2016/10/25.
-	     * E-mail luowei5@jd.com
-	     * Update 2016/10/25
-	     */
-
+	});
 
 	function select(state) {
+	    //console.log(state);
 	    return {
 	        myState: state
 	    };

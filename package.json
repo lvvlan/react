@@ -20,7 +20,10 @@
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "flux": "^3.0.0",
+    "history": "^4.4.0",
     "html-webpack-plugin": "^2.22.0",
+    "jquery": "^3.1.1",
+    "json-loader": "^0.5.4",
     "jsx-loader": "^0.13.2",
     "object-assign": "^4.1.0",
     "open-browser-webpack-plugin": "0.0.2",
@@ -35,6 +38,7 @@
     "redux-thunk": "^2.1.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
+    "webpack-dashboard": "^0.2.0",
     "webpack-dev-server": "^1.15.0"
   }
 }

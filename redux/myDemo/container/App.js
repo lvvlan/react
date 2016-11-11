@@ -12,17 +12,24 @@ import { DIRECTIVE_TYPE, updateData, fetchPostsIfNeed } from '../actions';
 
 let App = React.createClass({
     handleClick(flag){
-        const { dispatch } = this.props;
-
-        dispatch(fetchPostsIfNeed(flag));
+        const { dispatch, myState } = this.props;
+        //dispatch(fetchPostsIfNeed(flag));
+        dispatch({
+            type: flag,
+            posts: {
+                [flag.toLowerCase()]: myState.posts
+            },
+            lastUpdate: 222
+        });
     },
     componentDidMount() {
         const { dispatch } = this.props;
-
+        //console.log(1);
         dispatch(updateData(DIRECTIVE_TYPE.START));
     },
     componentWillReceiveProps(nextProps){
         if(nextProps.myState.type !== this.props.myState.type){
+            console.log(2);
             const { dispatch } = this.props;
             //console.log(nextProps.myState.type);
             dispatch(fetchPostsIfNeed(nextProps.myState.type));
@@ -30,6 +37,7 @@ let App = React.createClass({
     },
     render() {
         //console.log(this.props);
+        //console.log(1);
         const {isFetching, posts} = this.props.myState;
         //console.log(posts);
         const isEmpty = posts.length === 0;
@@ -51,7 +59,8 @@ let App = React.createClass({
 
 function select(state)
 {
-    return {
+    //console.log(state);
+    return {  
         myState: state
     };
 }

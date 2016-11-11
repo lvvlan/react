@@ -2,5 +2,6 @@ example/
 .idea/
 .svn/
 .sass-cache/
+.vscode
 node_modules/
 npm-debug.log
