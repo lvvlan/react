@@ -58,3 +58,102 @@ RD.render(
     <Hello name="world" />,
     document.querySelector('#reactBox')
 );
+let i = 0;
+let Foo = React.createClass({
+    handelClickProp() {
+        this.setState({
+            testState: 'changed by props!'
+        });
+    },
+    handelClickState() {
+        this.setState({
+            testState: 'changed by setState!!'
+        });
+    },
+    handelRemove() {
+        RD.unmountComponentAtNode(document.getElementById('app'));
+    },
+    getDefaultProps() {
+        let j = 0;
+        i++;
+        console.log(`${i}. getDefaultProps被调用! 这是第${++j}次被调用!`);
+        return {
+            name: 'Hello World~!'
+        };
+    },
+    getInitialState() {
+        let j = 0;
+        i++;
+        console.log(`${i}. getInitialState被调用! 这是第${++j}次被调用!`);
+        return {
+            testState: 'this is test state~!'
+        };
+    },
+    componentWillMount() {
+        let j = 0;
+        i++;
+        console.log(`${i}. componentWillMount被调用! 这是第${++j}次被调用!`);
+    },
+    render() {
+        let j = 0;
+        i++;
+        console.log(`${i}. render被调用! 这是第${++j}次被调用!`);
+        return (
+            <div>
+                <h1>React实例</h1>
+                <div>
+                    <input type="button" value="更改props" name={this.state.testState} onClick={this.handelClickProp}/>
+                    <p>{this.props.name}</p>
+                </div>
+                <div>
+                    <input type="button" value="更改state" onClick={this.handelClickState}/>
+                    <p>{this.state.testState}</p>
+                </div>
+                <div>
+                    <input type="button" value="移除组件" onClick={this.handelRemove}/>
+                    <p>移除组件</p>
+                </div>
+            </div>
+        );
+    },
+    componentDidMount() {
+        let j = 0;
+        i++;
+        console.log(`${i}. componentDidMount被调用! 这是第${++j}次被调用!`);
+    },
+    componentWillReceiveProps(nextProps, nextContext) {
+        let j = 0;
+        i++;
+        console.log(`${i}. componentWillReceiveProps被调用! 这是第${++j}次被调用!`);
+        console.log(`nextProps是: ${nextProps}, nextContext是: ${nextContext}`);
+    },
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        let j = 0;
+        i++;
+        console.log(`${i}. shouldComponentUpdate被调用! 这是第${++j}次被调用!`);
+        console.log(`nextProps是: ${nextProps}, nextState是: ${nextState}, nextContext是: ${nextContext}`);
+        return true;
+    },
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        let j = 0;
+        i++;
+        console.log(`${i}. componentWillUpdate被调用! 这是第${++j}次被调用!`);
+        console.log(`nextProps是: ${nextProps}, nextState是: ${nextState}, nextContext是: ${nextContext}`);
+    },
+    componentDidUpdate(prevProps, prevState, prevContext) {
+        let j = 0;
+        i++;
+        console.log(`${i}. componentDidUpdate被调用! 这是第${++j}次被调用!`);
+        console.log(`prevProps是: ${prevProps}, prevState是: ${prevState}, prevContext是: ${prevContext}`);
+    },
+    componentWillUnmount() {
+        let j = 0;
+        i++;
+        console.log(`${i}. componentWillUnmount被调用! 这是第${++j}次被调用!`);
+    }
+});
+
+RD.render(
+    <Foo />,
+    document.getElementById('app')
+);
