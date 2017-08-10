@@ -1,13 +1,16 @@
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import createLogger from 'redux-logger';
 import rootReducer from '../reducers';
 import Dbt from '../container/dbt';
 import Xbw from '../container/xbw';
 import Bn from '../container/bn';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, composeWithDevTools(
+    applyMiddleware(thunk)
+));
 
 //单个组件加载
 function renderFloor(floor){
